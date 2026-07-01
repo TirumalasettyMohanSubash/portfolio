@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -34,7 +33,6 @@
 
     img { max-width:100%; display:block; }
 
-    /* ── PRELOADER ── */
     #preloader {
       position:fixed; inset:0; z-index:9999;
       background:var(--bg);
@@ -58,13 +56,11 @@
     }
     @keyframes loadBar { to { width:100%; } }
 
-    /* ── SCROLL PROGRESS ── */
     #scrollProgress {
       position:fixed; top:0; left:0; height:2px; z-index:200;
       background:var(--gradient); width:0%;
     }
 
-    /* ── GEOMETRIC BG SHAPES ── */
     .geo-shapes { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
     .geo-shape {
       position:absolute; border:1px solid rgba(124,58,237,.08);
@@ -79,7 +75,6 @@
     @keyframes geoFloat2 { 0%,100%{ transform:rotate(20deg) translate(0,0); } 50%{ transform:rotate(25deg) translate(-25px,20px); } }
     @keyframes geoFloat3 { 0%,100%{ transform:rotate(60deg) translate(0,0); } 50%{ transform:rotate(55deg) translate(15px,25px); } }
 
-    /* ── SIDE DOTS NAV ── */
     .side-nav {
       position:fixed; right:2rem; top:50%; transform:translateY(-50%);
       z-index:60; display:flex; flex-direction:column; gap:1rem;
@@ -98,7 +93,6 @@
     }
     .side-dot:hover::after { opacity:1; transform:translateY(-50%) translateX(0); }
 
-    /* ── NAVBAR ── */
     header {
       position:sticky; top:0; z-index:100;
       border-bottom:1px solid var(--border);
@@ -128,7 +122,6 @@
 
     section { padding:6rem 0; position:relative; z-index:2; }
 
-    /* ── REVEAL ── */
     .reveal {
       opacity:0; transform:translateY(50px);
       transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1);
@@ -140,12 +133,13 @@
     .reveal-d4 { transition-delay:.4s; }
     .reveal-d5 { transition-delay:.5s; }
 
-    /* ── HERO ── */
     .hero {
       min-height:calc(100vh - 70px);
-      display:flex; flex-direction:column; justify-content:center;
+      display:grid; grid-template-columns:1.2fr 1fr;
+      align-items:center; gap:3rem;
       padding:2rem 0;
     }
+
     .hero-eyebrow {
       font-family:"Space Grotesk",sans-serif;
       font-size:.82rem; font-weight:600; letter-spacing:3px;
@@ -157,14 +151,14 @@
     }
     .hero-name {
       font-family:"Space Grotesk",sans-serif;
-      font-size:clamp(2.5rem,5.5vw,4.2rem);
+      font-size:clamp(2.2rem,4.5vw,3.5rem);
       font-weight:700; line-height:1.08; letter-spacing:-1.5px;
       margin-bottom:1.5rem;
     }
     .hero-role {
-      font-size:clamp(1rem,2vw,1.3rem);
+      font-size:clamp(.95rem,1.8vw,1.2rem);
       color:var(--muted); margin-bottom:2.5rem;
-      max-width:520px; font-weight:300;
+      max-width:480px; font-weight:300;
     }
     .hero-role .typed-cursor {
       display:inline-block; width:2px; height:1.1em;
@@ -173,7 +167,7 @@
     }
     @keyframes blink { 50%{opacity:0;} }
 
-    .hero-actions { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:3rem; }
+    .hero-actions { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:2.5rem; }
 
     .btn-magnetic {
       position:relative; display:inline-flex; align-items:center; gap:.6rem;
@@ -207,33 +201,130 @@
     }
     @keyframes scrollDown { 0%{top:-50%;} 100%{top:150%;} }
 
-    .hero-deco {
-      position:absolute; right:5%; top:50%; transform:translateY(-50%);
-      width:280px; height:280px; border-radius:50%;
-      border:1px solid var(--border); opacity:.4;
-    }
-    .hero-deco::before {
-      content:''; position:absolute; inset:30px; border-radius:50%;
-      border:1px solid rgba(124,58,237,.15);
-      animation: decoSpin 20s linear infinite;
-    }
-    .hero-deco::after {
-      content:''; position:absolute; inset:70px; border-radius:50%;
-      border:1px dashed rgba(6,182,212,.1);
-      animation: decoSpin 15s linear infinite reverse;
-    }
-    @keyframes decoSpin { to{transform:rotate(360deg);} }
-
-    .hero-dot-grid {
-      position:absolute; right:8%; top:15%; z-index:1;
-      display:grid; grid-template-columns:repeat(5,1fr); gap:12px;
-      opacity:.15;
-    }
-    .hero-dot-grid span {
-      width:3px; height:3px; border-radius:50%; background:var(--text);
+    /* ── PROFILE IMAGE ── */
+    .hero-image-section {
+      display:flex; justify-content:center; align-items:center;
+      position:relative;
     }
 
-    /* ── MARQUEE ── */
+    .profile-frame {
+      position:relative;
+      width:320px; height:400px;
+    }
+
+    .profile-ring-outer {
+      position:absolute; inset:-18px;
+      border-radius:24px;
+      border:1px solid transparent;
+      background: linear-gradient(var(--bg), var(--bg)) padding-box,
+                  var(--gradient) border-box;
+      animation: ringRotate 8s linear infinite;
+    }
+    @keyframes ringRotate {
+      0% { transform:rotate(0deg); }
+      100% { transform:rotate(360deg); }
+    }
+
+    .profile-ring-dashed {
+      position:absolute; inset:-8px;
+      border-radius:20px;
+      border:1px dashed rgba(124,58,237,.2);
+      animation: ringRotate 12s linear infinite reverse;
+    }
+
+    .profile-img-wrapper {
+      width:100%; height:100%;
+      border-radius:20px;
+      overflow:hidden;
+      position:relative;
+      z-index:2;
+      background: var(--surface);
+    }
+
+    .profile-img-wrapper img {
+      width:100%; height:100%;
+      object-fit:cover;
+      transition: transform .6s cubic-bezier(.16,1,.3,1);
+      display:block;
+    }
+
+    .profile-frame:hover .profile-img-wrapper img {
+      transform:scale(1.05);
+    }
+
+    .profile-img-overlay {
+      position:absolute; inset:0; z-index:3;
+      background:linear-gradient(to top, rgba(5,5,16,.6) 0%, transparent 40%);
+      pointer-events:none;
+    }
+
+    .profile-corner {
+      position:absolute; width:24px; height:24px; z-index:4;
+    }
+    .profile-corner::before, .profile-corner::after {
+      content:''; position:absolute; background:var(--accent);
+    }
+    .profile-corner.tl { top:-30px; left:-30px; }
+    .profile-corner.tl::before { top:0; left:0; width:24px; height:1.5px; }
+    .profile-corner.tl::after { top:0; left:0; width:1.5px; height:24px; }
+    .profile-corner.tr { top:-30px; right:-30px; }
+    .profile-corner.tr::before { top:0; right:0; width:24px; height:1.5px; }
+    .profile-corner.tr::after { top:0; right:0; width:1.5px; height:24px; }
+    .profile-corner.bl { bottom:-30px; left:-30px; }
+    .profile-corner.bl::before { bottom:0; left:0; width:24px; height:1.5px; }
+    .profile-corner.bl::after { bottom:0; left:0; width:1.5px; height:24px; }
+    .profile-corner.br { bottom:-30px; right:-30px; }
+    .profile-corner.br::before { bottom:0; right:0; width:24px; height:1.5px; }
+    .profile-corner.br::after { bottom:0; right:0; width:1.5px; height:24px; }
+
+    .profile-badge {
+      position:absolute; bottom:-14px; left:50%; transform:translateX(-50%);
+      z-index:5; padding:.5rem 1.2rem; border-radius:60px;
+      background:rgba(5,5,16,.85); backdrop-filter:blur(12px);
+      border:1px solid var(--border);
+      font-family:"Space Grotesk",sans-serif;
+      font-size:.78rem; font-weight:600; color:var(--text);
+      white-space:nowrap;
+      display:flex; align-items:center; gap:.5rem;
+      animation: badgeFloat 3s ease-in-out infinite;
+    }
+    .profile-badge .badge-dot {
+      width:7px; height:7px; border-radius:50%;
+      background:#22c55e;
+      animation: pulseDot 2s infinite;
+    }
+    @keyframes badgeFloat {
+      0%,100%{ transform:translateX(-50%) translateY(0); }
+      50%{ transform:translateX(-50%) translateY(-5px); }
+    }
+    @keyframes pulseDot {
+      0%,100%{ opacity:1; box-shadow:0 0 0 0 rgba(34,197,94,.4); }
+      50%{ opacity:.8; box-shadow:0 0 0 6px rgba(34,197,94,0); }
+    }
+
+    .profile-glow {
+      position:absolute; inset:-40%; z-index:0;
+      background:radial-gradient(circle, rgba(124,58,237,.12) 0%, transparent 55%);
+      animation: glowPulse 4s ease-in-out infinite alternate;
+    }
+    @keyframes glowPulse {
+      0%{ opacity:.5; transform:scale(.95); }
+      100%{ opacity:1; transform:scale(1.08); }
+    }
+
+    .orbit-dot {
+      position:absolute; width:6px; height:6px;
+      border-radius:50%; background:var(--accent2);
+      z-index:4; top:50%; left:50%;
+      margin-top:-3px; margin-left:-3px;
+      animation: orbitSpin 6s linear infinite;
+      box-shadow:0 0 10px rgba(6,182,212,.5);
+    }
+    @keyframes orbitSpin {
+      0%{ transform:rotate(0deg) translateX(195px) rotate(0deg); }
+      100%{ transform:rotate(360deg) translateX(195px) rotate(-360deg); }
+    }
+
     .marquee-section { padding:2rem 0; overflow:hidden; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
     .marquee-track {
       display:flex; gap:3rem; animation: marquee 25s linear infinite;
@@ -247,7 +338,6 @@
     }
     .marquee-item .sep { width:6px; height:6px; border-radius:50%; background:var(--accent); opacity:.5; }
 
-    /* ── SECTION HEADER ── */
     .sec-header { margin-bottom:3.5rem; }
     .sec-label {
       font-family:"Space Grotesk",sans-serif;
@@ -260,7 +350,6 @@
       letter-spacing:-.5px; line-height:1.15;
     }
 
-    /* ── ABOUT / WHAT I DO ── */
     .whatido-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
     .whatido-card {
       background:var(--card); border:1px solid var(--border);
@@ -310,7 +399,6 @@
     .timeline-item h4 { font-size:.9rem; font-weight:600; margin-bottom:.2rem; }
     .timeline-item p { font-size:.8rem; color:var(--muted); }
 
-    /* ── SKILLS ── */
     .skills-layout { display:grid; grid-template-columns:1fr 1fr; gap:3rem; }
     .skill-bars { display:flex; flex-direction:column; gap:1.5rem; }
     .skill-bar-item label {
@@ -325,7 +413,6 @@
       background:var(--gradient);
       transition: width 1.2s cubic-bezier(.16,1,.3,1);
     }
-    .skill-bar-fill.animated { /* width set via JS */ }
 
     .skill-tools-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
     .skill-tool {
@@ -342,7 +429,6 @@
     }
     .skill-tool span { font-size:.88rem; font-weight:500; }
 
-    /* ── PROJECTS ── */
     .projects-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:1.5rem; }
     .project-card {
       border-radius:20px; overflow:hidden;
@@ -384,7 +470,6 @@
       color:#c4b5fd;
     }
 
-    /* ── CONTACT ── */
     .contact-grid { display:grid; grid-template-columns:1fr 1.4fr; gap:3rem; }
     .contact-left h3 {
       font-family:"Space Grotesk",sans-serif;
@@ -450,7 +535,6 @@
     .form-toast.show { display:flex; align-items:center; gap:.5rem; }
     @keyframes slideIn { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:translateY(0);} }
 
-    /* ── FOOTER ── */
     footer {
       padding:3rem 0 2rem; border-top:1px solid var(--border);
       position:relative; z-index:2;
@@ -462,7 +546,6 @@
     .footer-inner a { color:var(--muted); text-decoration:none; transition:color .3s; }
     .footer-inner a:hover { color:var(--accent); }
 
-    /* ── BACK TO TOP ── */
     #backToTop {
       position:fixed; bottom:2rem; right:2rem; z-index:80;
       width:48px; height:48px; border-radius:50%; border:none;
@@ -474,13 +557,24 @@
     #backToTop.show { opacity:1; visibility:visible; transform:translateY(0) scale(1); }
     #backToTop:hover { transform:translateY(-3px) scale(1.05); }
 
-    /* ── MOBILE ── */
     @media(max-width:1024px){
       .side-nav { display:none; }
-      .hero-deco, .hero-dot-grid { display:none; }
     }
     @media(max-width:900px){
-      .hero-name { font-size:2.2rem; }
+      .hero { grid-template-columns:1fr; text-align:center; min-height:auto; padding:3rem 0; }
+      .hero-eyebrow { justify-content:center; }
+      .hero-eyebrow::before { display:none; }
+      .hero-name { font-size:2rem; }
+      .hero-role { margin-left:auto; margin-right:auto; }
+      .hero-actions { justify-content:center; }
+      .hero-scroll { justify-content:center; }
+      .profile-frame { width:240px; height:300px; }
+      .orbit-dot { animation: orbitSpinMobile 6s linear infinite; }
+      @keyframes orbitSpinMobile {
+        0%{ transform:rotate(0deg) translateX(148px) rotate(0deg); }
+        100%{ transform:rotate(360deg) translateX(148px) rotate(-360deg); }
+      }
+      .hero-image-section { order:-1; }
       .whatido-grid { grid-template-columns:1fr; }
       .about-content { grid-template-columns:1fr; }
       .about-visual-box { display:none; }
@@ -502,24 +596,23 @@
       .menu-btn { display:block; }
     }
     @media(max-width:480px){
-      .hero-name { font-size:1.8rem; letter-spacing:-.5px; }
+      .hero-name { font-size:1.7rem; letter-spacing:-.5px; }
       section { padding:4rem 0; }
       .skill-tools-grid { grid-template-columns:1fr; }
+      .profile-frame { width:200px; height:250px; }
+      .orbit-dot { display:none; }
     }
   </style>
 </head>
 <body>
 
-<!-- PRELOADER -->
 <div id="preloader">
   <div class="preloader-text">Loading Portfolio</div>
   <div class="preloader-bar"><div class="preloader-bar-fill"></div></div>
 </div>
 
-<!-- SCROLL PROGRESS -->
 <div id="scrollProgress"></div>
 
-<!-- GEOMETRIC BG -->
 <div class="geo-shapes">
   <div class="geo-shape s1"></div>
   <div class="geo-shape s2"></div>
@@ -528,7 +621,6 @@
   <div class="geo-shape s5"></div>
 </div>
 
-<!-- SIDE NAV DOTS -->
 <div class="side-nav" id="sideNav">
   <div class="side-dot active" data-label="Home" data-target="home"></div>
   <div class="side-dot" data-label="About" data-target="about"></div>
@@ -537,7 +629,6 @@
   <div class="side-dot" data-label="Contact" data-target="contact"></div>
 </div>
 
-<!-- NAVBAR -->
 <header id="header">
   <div class="container">
     <nav>
@@ -555,43 +646,57 @@
 </header>
 
 <main>
-  <!-- HERO -->
   <section id="home">
     <div class="container hero">
-      <div class="hero-eyebrow reveal">JAVA FULL STACK DEVELOPER</div>
-      <h1 class="hero-name reveal reveal-d1">
-        Tirumalasetty<br>Mohan Subash
-      </h1>
-      <p class="hero-role reveal reveal-d2">
-        <span id="typedText"></span><span class="typed-cursor"></span>
-      </p>
-      <div class="hero-actions reveal reveal-d3">
-        <a href="#projects" class="btn-magnetic btn-primary" data-magnetic>View Projects ↗</a>
-        <a href="#contact" class="btn-magnetic btn-ghost" data-magnetic>Let's Talk</a>
+      <div class="hero-content">
+        <div class="hero-eyebrow reveal">Available for Opportunities</div>
+        <h1 class="hero-name reveal reveal-d1">
+          Tirumalasetty<br>Mohan Subash
+        </h1>
+        <p class="hero-role reveal reveal-d2">
+          <span id="typedText"></span><span class="typed-cursor"></span>
+        </p>
+        <div class="hero-actions reveal reveal-d3">
+          <a href="#projects" class="btn-magnetic btn-primary" data-magnetic>View Projects ↗</a>
+          <a href="#contact" class="btn-magnetic btn-ghost" data-magnetic>Let's Talk</a>
+        </div>
+        <div class="hero-scroll reveal reveal-d4">
+          <div class="scroll-line"></div>
+          <span>Scroll Down</span>
+        </div>
       </div>
-      <div class="hero-scroll reveal reveal-d4">
-        <div class="scroll-line"></div>
-        <span>Scroll Down</span>
-      </div>
-      <div class="hero-deco"></div>
-      <div class="hero-dot-grid">
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
+
+      <div class="hero-image-section reveal reveal-d2">
+        <div class="profile-frame">
+          <div class="profile-glow"></div>
+          <div class="profile-ring-outer"></div>
+          <div class="profile-ring-dashed"></div>
+          <div class="profile-corner tl"></div>
+          <div class="profile-corner tr"></div>
+          <div class="profile-corner bl"></div>
+          <div class="profile-corner br"></div>
+          <div class="orbit-dot"></div>
+          <div class="profile-img-wrapper">
+            <!-- ✅ WORKING PLACEHOLDER IMAGE — Replace with your own photo path -->
+            <img src="profile.jpg" alt="Tirumalasetty Mohan Subash">
+            <div class="profile-img-overlay"></div>
+          </div>
+          <div class="profile-badge">
+            <span class="badge-dot"></span>
+            Java Full Stack Developer
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- MARQUEE -->
   <div class="marquee-section">
     <div class="marquee-track">
       <div class="marquee-item"><span class="sep"></span>HTML5</div>
       <div class="marquee-item"><span class="sep"></span>CSS3</div>
       <div class="marquee-item"><span class="sep"></span>React.js</div>
-      <div class="marquee-item"><span class="sep"></span>Java</div>
       <div class="marquee-item"><span class="sep"></span>JavaScript</div>
+      <div class="marquee-item"><span class="sep"></span>Java</div>
       <div class="marquee-item"><span class="sep"></span>JSP</div>
       <div class="marquee-item"><span class="sep"></span>JDBC</div>
       <div class="marquee-item"><span class="sep"></span>MySQL</div>
@@ -599,13 +704,12 @@
       <div class="marquee-item"><span class="sep"></span>GitHub</div>
       <div class="marquee-item"><span class="sep"></span>VS Code</div>
       <div class="marquee-item"><span class="sep"></span>XAMPP</div>
-
-      <!-- Duplicate for seamless loop -->
+      
       <div class="marquee-item"><span class="sep"></span>HTML5</div>
       <div class="marquee-item"><span class="sep"></span>CSS3</div>
       <div class="marquee-item"><span class="sep"></span>React.js</div>
-      <div class="marquee-item"><span class="sep"></span>Java</div>
       <div class="marquee-item"><span class="sep"></span>JavaScript</div>
+      <div class="marquee-item"><span class="sep"></span>Java</div>
       <div class="marquee-item"><span class="sep"></span>JSP</div>
       <div class="marquee-item"><span class="sep"></span>JDBC</div>
       <div class="marquee-item"><span class="sep"></span>MySQL</div>
@@ -617,14 +721,12 @@
     </div>
   </div>
 
-  <!-- ABOUT -->
   <section id="about">
     <div class="container">
       <div class="sec-header">
         <div class="sec-label reveal">What I Do</div>
         <h2 class="sec-title reveal reveal-d1">Building digital experiences<br>with clean code</h2>
       </div>
-
       <div class="whatido-grid">
         <div class="whatido-card reveal reveal-d1">
           <div class="whatido-icon">🎨</div>
@@ -642,7 +744,6 @@
           <p>Designing and managing MySQL databases to store, retrieve, and manipulate data securely for web applications.</p>
         </div>
       </div>
-
       <div class="about-content">
         <div class="about-text">
           <p>
@@ -676,14 +777,12 @@
     </div>
   </section>
 
-  <!-- SKILLS -->
   <section id="skills">
     <div class="container">
       <div class="sec-header">
         <div class="sec-label reveal">Technical Skills</div>
         <h2 class="sec-title reveal reveal-d1">My toolkit & proficiency</h2>
       </div>
-
       <div class="skills-layout">
         <div>
           <div class="skill-bars" id="skillBars">
@@ -691,9 +790,9 @@
               <label><span>HTML / CSS</span><span>90%</span></label>
               <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div>
             </div>
-            <div class="skill-bar-item reveal">
-              <label><span>React.js</span><span>80%</span></label>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div>
+             <div class="skill-bar-item reveal reveal-d1">
+              <label><span>React.js</span><span>79%</span></label>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="70"></div></div>
             </div>
             <div class="skill-bar-item reveal reveal-d1">
               <label><span>JavaScript</span><span>70%</span></label>
@@ -717,9 +816,9 @@
           <div class="skill-tools-grid">
             <div class="skill-tool reveal"><div class="skill-tool-icon">🌐</div><span>HTML5</span></div>
             <div class="skill-tool reveal reveal-d1"><div class="skill-tool-icon">🎨</div><span>CSS3</span></div>
+            <div class="skill-tool reveal reveal-d1"><div class="skill-tool-icon">⚛️</div><span>Reaact.js</span></div>
             <div class="skill-tool reveal reveal-d2"><div class="skill-tool-icon">⚡</div><span>JavaScript</span></div>
             <div class="skill-tool reveal reveal-d3"><div class="skill-tool-icon">☕</div><span>Java</span></div>
-            <div class="skill-tool reveal reveal-d1"><div class="skill-tool-icon">⚛️</div><span>Recat.js</span></div>
             <div class="skill-tool reveal reveal-d4"><div class="skill-tool-icon">📄</div><span>JSP</span></div>
             <div class="skill-tool reveal reveal-d5"><div class="skill-tool-icon">🔗</div><span>JDBC</span></div>
             <div class="skill-tool reveal"><div class="skill-tool-icon">🗃</div><span>MySQL</span></div>
@@ -730,18 +829,16 @@
     </div>
   </section>
 
-  <!-- PROJECTS -->
   <section id="projects">
     <div class="container">
       <div class="sec-header">
         <div class="sec-label reveal">Featured Work</div>
         <h2 class="sec-title reveal reveal-d1">Projects I've built</h2>
       </div>
-
       <div class="projects-grid">
         <div class="project-card reveal reveal-d1">
           <div class="project-img">
-            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085" alt="Portfolio">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085" alt="Portfolio Website">
             <div class="project-img-overlay"></div>
             <div class="project-img-num">PROJECT 01</div>
           </div>
@@ -755,7 +852,6 @@
             </div>
           </div>
         </div>
-
         <div class="project-card reveal reveal-d2">
           <div class="project-img">
             <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800" alt="Student Login App">
@@ -773,7 +869,6 @@
             </div>
           </div>
         </div>
-
         <div class="project-card reveal reveal-d3">
           <div class="project-img">
             <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f" alt="Product Landing Page">
@@ -794,14 +889,12 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section id="contact">
     <div class="container">
       <div class="sec-header">
         <div class="sec-label reveal">Get In Touch</div>
         <h2 class="sec-title reveal reveal-d1">Let's work together</h2>
       </div>
-
       <div class="contact-grid">
         <div class="contact-left reveal reveal-d1">
           <h3>I'd love to hear from you</h3>
@@ -858,19 +951,15 @@
   </div>
 </footer>
 
-<!-- BACK TO TOP -->
 <button id="backToTop" aria-label="Back to top">↑</button>
 
 <script>
-  // ── PRELOADER ──
   window.addEventListener('load', () => {
     setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 1400);
   });
 
-  // ── YEAR ──
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // ── MOBILE MENU ──
   const menuBtn = document.getElementById('menuBtn');
   const navLinks = document.getElementById('navLinks');
   menuBtn.addEventListener('click', () => {
@@ -882,23 +971,19 @@
     menuBtn.textContent = '☰';
   }));
 
-  // ── SCROLL PROGRESS ──
   window.addEventListener('scroll', () => {
     const h = document.documentElement;
     document.getElementById('scrollProgress').style.width =
       (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + '%';
   });
 
-  // ── HEADER SHADOW ──
   const header = document.getElementById('header');
   window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 50));
 
-  // ── BACK TO TOP ──
   const btt = document.getElementById('backToTop');
   window.addEventListener('scroll', () => btt.classList.toggle('show', window.scrollY > 500));
   btt.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
 
-  // ── SIDE NAV DOTS ──
   const sections = ['home','about','skills','projects','contact'];
   const dots = document.querySelectorAll('.side-dot');
   dots.forEach(d => d.addEventListener('click', () => {
@@ -916,13 +1001,11 @@
     });
   });
 
-  // ── SCROLL REVEAL ──
   const revealObs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold:.1, rootMargin:'0px 0px -30px 0px' });
   document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
-  // ── SKILL BAR ANIMATION ──
   const skillObs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -934,7 +1017,6 @@
   }, { threshold:.3 });
   skillObs.observe(document.getElementById('skillBars'));
 
-  // ── TYPING EFFECT ──
   const roles = ['Java Full Stack Developer', 'Web Developer', 'Problem Solver', 'Tech Enthusiast'];
   let ri=0, ci=0, del=false;
   const typedEl = document.getElementById('typedText');
@@ -952,7 +1034,6 @@
   }
   typeLoop();
 
-  // ── MAGNETIC BUTTON EFFECT ──
   document.querySelectorAll('[data-magnetic]').forEach(btn => {
     btn.addEventListener('mousemove', e => {
       const rect = btn.getBoundingClientRect();
@@ -965,7 +1046,6 @@
     });
   });
 
-  // ── FORM ──
   function submitForm(e) {
     e.preventDefault();
     const form = document.getElementById('contactForm');
@@ -978,6 +1058,21 @@
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 4500);
     }, 1300);
+  }
+
+  const profileFrame = document.querySelector('.profile-frame');
+  if (profileFrame) {
+    profileFrame.addEventListener('mousemove', e => {
+      const rect = profileFrame.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      profileFrame.style.transform = `perspective(800px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
+      profileFrame.style.transition = 'transform 0.1s ease-out';
+    });
+    profileFrame.addEventListener('mouseleave', () => {
+      profileFrame.style.transform = 'perspective(800px) rotateY(0deg) rotateX(0deg)';
+      profileFrame.style.transition = 'transform 0.5s ease-out';
+    });
   }
 </script>
 
